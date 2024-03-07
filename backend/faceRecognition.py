@@ -38,7 +38,6 @@ def getImageFromVideo(url,name):
            cv2.imwrite(f"Img_Collect/{name}/{name}_{frame_count:05d}.jpg", frame)
            frame_count += 1
 
-
 def getCroppedImage(url):
        try:
          face_cascade = cv2.CascadeClassifier('backend/haarcascades/haarcascade_frontalface_default.xml')
@@ -72,7 +71,6 @@ def load():
     for entry in os.scandir(path_to_data):
         if entry.is_dir():
              img_dirs.append(entry.path)
-    print(img_dirs)
       # chicek if file already exist 
     if os.path.exists(path_to_cr_data):
           shutil.rmtree(path_to_cr_data)
@@ -81,7 +79,7 @@ def load():
       # list & dictionary
     cropped_image_dirs = []
     face_name_dict = {}
-    class_name = {}
+    
     for img_dir in img_dirs:
         count = 1
         name = img_dir.split('/')[-1]
@@ -169,7 +167,7 @@ def getInput(face_dict):
 # fit the model using machine learning algorithms
 def ModelFit(X,y):
       X_train,X_tests,y_train,y_test = train_test_split(X,y,test_size = 0.10,random_state=42)
-      pipe = Pipeline([('scaler',StandardScaler()),('rf',RandomForestClassifier(n_estimators=100, random_state=42))])
+      pipe = Pipeline([('scaler',StandardScaler()),(' rf',RandomForestClassifier(n_estimators=100, random_state=42))])
       pipe.fit(X_train,y_train)
       
       with open('backend/model.pkl','wb') as f:
